@@ -48,7 +48,6 @@ $sudo nano /etc/postgresql/9.5/main/pg_hba.conf
 Login 
 $"sudo su - postgres
 $psql
-
 #CREATE USER catalog WITH PASSWORD '*****';
 #CREATE DATABASE catalog WITH OWNER catalog;
 #\q
@@ -62,42 +61,53 @@ $git clone https://github.com/atheeraa/veganmarket.git
 10.Edit the python files with :
 engine = create_engine('postgresql://catalog:password@localhost/catalog')
 
-11. 
-sudo apt-get install python-pip
-sudo apt-get -qqy install postgresql python-psycopg2
-pip install sqlalchemy
-sudo pip install Flask
+11. Install nesessary packages:
+$sudo apt-get install python-pip
+$sudo apt-get -qqy install postgresql python-psycopg2
+$pip install sqlalchemy
+$sudo pip install Flask
+$pip install psycopg2-binary
+
+
+12. Change database path in __init__.py and database_setup.py and veganmarket.py to 
+engine = create_engine('postgresql://catalog:password@localhost/catalog')
+
+sudo python3 database_setup.py
+sudo python3 __init__.py
+sudo python3 veganmarket.py
+
+
+13.Create a virtual environment
+$sudo pip install virtualenv
+$sudo virtualenv venv
+Activate it with
+$source venv/bin/activate
+Change the permissions
+$sudo chmod -R 777 venv
  
- 
- 
- pip install psycopg2-binary
- sudo python3 database_setup.py
- 
- 
- sudo nano /etc/apache2/sites-available/veganmarketApp.conf
+14. Create .conf file :
+$sudo nano /etc/apache2/sites-available/veganmarketApp.conf
  
 <VirtualHost *:80>
-	ServerName 52.24.125.52
-	ServerAdmin qiaowei8993@gmail.com
-	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
-	<Directory /var/www/FlaskApp/FlaskApp/>
-		Order allow,deny
-		Allow from all
-	</Directory>
-	Alias /static /var/www/FlaskApp/FlaskApp/static
-	<Directory /var/www/FlaskApp/FlaskApp/static/>
-		Order allow,deny
-		Allow from all
-	</Directory>
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	LogLevel warn
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ServerName 35.158.243.74
+        ServerAdmin atheerabdullaha@outlook.com
+        WSGIScriptAlias / /var/www/veganmarket/veganmarketserver.wsgi
+        <Directory /var/www/veganmarket/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        Alias /static /var/www/veganmarket/static
+        <Directory /var/www/veganmarket/static/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
- 
- 
- 
- sudo service apache2 reload
- 
- disable apache 
-sudo a2dissite 000-default.conf
- sudo service apache2 reload
+
+15. Reload server
+$sudo disable apache 
+$sudo a2dissite 000-default.conf
+$sudo service apache2 reload
+

@@ -12,17 +12,44 @@ Download the key and move it into ~/.ssh and type:
 $ ssh -i ~/.ssh/skey.pem -p 22 ubuntu@35.158.243.74
  after changing the port into 22 by : 
  
+
 $sudo nano /etc/ssh/sshd_config
+
 Change the port from 22 to 2200
+
 $sudo service ssh restart
 
 we will be logging in using 
 
 $ssh -i ~/.ssh/skey.pem -p 2200 ubuntu@35.158.243.74
 
-2. For the grader to access the server the password and the phrase are given in the project submission notes.
+2.Created the grader user and gave it sudo privilges 
 
-$ ssh grader@35.158.243.74 -p 2200 -i ~/lkey
+$sudo adduser grader 
+
+$sudo visudo :
+
+edit it and the line 
+
+grader ALL=(ALL:ALL) ALL
+
+For the grader to access the server the private key and the phrase are given in the project submission notes.
+
+$ ssh grader@35.158.243.74 -p 2200 -i ~/grader
+
+create a key pair locally
+
+$ssh-keygen
+
+copy the .pub file contents into 
+
+grader : ~/.ssh/authorized_keys
+
+change the permission:
+
+chmod 700 .ssh
+
+chmod 644 .ssh/authorized_keys
 
 
 3.Update all currently installed packages
@@ -149,25 +176,28 @@ $sudo chmod -R 777 venv
  
 15. Create .conf file :
 
-$sudo nano /etc/apache2/sites-available/veganmarketApp.conf
- 
+$sudo nano /etc/apache2/sites-available/veganmarket.conf
 <VirtualHost *:80>
-        ServerName 35.158.243.74
-        ServerAdmin atheerabdullaha@outlook.com
-        WSGIScriptAlias / /var/www/veganmarket/veganmarketserver.wsgi
-        <Directory /var/www/veganmarket/>
-                Order allow,deny
-                Allow from all
-        </Directory>
-        Alias /static /var/www/veganmarket/static
-        <Directory /var/www/veganmarket/static/>
-                Order allow,deny
-                Allow from all
-        </Directory>
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        LogLevel warn
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ServerName 35.158.243.74
+    ServerAlias
+    ServerAdmin admin@35.158.243.74
+    WSGIProcessGroup veganmarket
+    WSGIDaemonProcess veganmarket python-path=/var/www/veganmarket:/var/www/veganmarket/venv/lib/python2.7/site-packages
+    WSGIScriptAlias / /var/www/veganmarket.wsgi
+    <Directory /var/www/veganmarket/veganmarket/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/veganmarket/veganmarket/static
+    <Directory /var/www/veganmarket/veganmarket/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+
 
 16. Reload server
 
@@ -179,3 +209,15 @@ $sudo service apache2 reload
 
 17. Configure google Api console and add new domain and redirect urls
 18. Visit http://35.158.243.74.xip.io
+
+
+
+Resources:
+http://flask.pocoo.org/docs/1.0/deploying/mod_wsgi/
+https://github.com/FahadAlsubaie/linux_server_configuration
+https://github.com/kongling893/Linux-Server-Configuration-UDACITY
+https://serverfault.com/questions/294101/wsgidaemonprocess-specifying-a-user
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
+https://stevenwooding.com/linux-server/
+https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-how-to-set-up-ssh

@@ -1,11 +1,14 @@
+## This is udacity's project, deploying a project on a linux server.
 
-The server IP address is :  35.158.243.74
+The server IP address is :  **35.158.243.74**
 
-Port is : 2200 
+Port is : **2200** 
+ 
+URL : **http://35.158.243.74.xip.io/**
 
 
 
-1.To connect to amazon lightsail instance :
+**1. To connect to amazon lightsail instance :
 
 Download the key and move it into ~/.ssh and type:
 
@@ -23,7 +26,7 @@ we will be logging in using
 
 $ssh -i ~/.ssh/skey.pem -p 2200 ubuntu@35.158.243.74
 
-2.Created the grader user and gave it sudo privilges 
+**2.Created the grader user and gave it sudo privilges 
 
 $sudo adduser grader 
 
@@ -52,13 +55,13 @@ chmod 700 .ssh
 chmod 644 .ssh/authorized_keys
 
 
-3.Update all currently installed packages
+**3.Update all currently installed packages
 
 $sudo apt-get update
 
 $sudo apt-get upgrade
 
-4.Configure (UFW)
+**4.Configure (UFW)
 
 sudo ufw deny incoming
 
@@ -72,12 +75,14 @@ sudo ufw allow 123/udp
 
 sudo ufw enable 
 
-5.change the local timezone :
+
+**5.change the local timezone :
 
 $sudo dpkg-reconfigure tzdata
 
 
-6. Install the following packages
+
+**6. Install the following packages
 
 $sudo apt-get install libapache2-mod-wsgi-py3
 
@@ -87,14 +92,16 @@ $sudo apt-get install postgresql
 
 
 
-7.Don't allow remote access to postgresql
+
+**7.Don't allow remote access to postgresql
 
 check if remote access is allowed by :
 
 $sudo nano /etc/postgresql/9.5/main/pg_hba.conf
 
 
-8.Create database user 
+
+**8.Create database user 
 
 Login 
 
@@ -112,7 +119,7 @@ exit
 
 
 
-9. Create a new directory in /var/www called veganmarket , clone git repository in it
+**9. Create a new directory in /var/www called veganmarket , clone git repository in it
 
 $mkdir /var/www/veganmarket
 
@@ -120,7 +127,9 @@ cd /var/www/veganmarket
 
 $git clone https://github.com/atheeraa/veganmarket.git
 
-10.Create wsgi file in veganmarket dir
+
+**10.Create wsgi file in veganmarket directory
+
 $ sudo nano /var/www/veganmarket/veganmarket.wsgi
 
 import sys
@@ -132,12 +141,14 @@ from veganmarket import app as application
 application.secret_key = 'super_secret_key'
 
 
-11.Edit the python files with :
+
+**11.Edit the python files with :
 
 engine = create_engine('postgresql://catalog:password@localhost/catalog')
 
 
-12. Install nesessary packages:
+
+**12. Install nesessary packages:
 
 $sudo apt-get install python-pip
 
@@ -150,7 +161,8 @@ $sudo pip install Flask
 $pip install psycopg2-binary
 
 
-13. Change database path in __init__.py and database_setup.py and veganmarket.py to 
+
+**13. Change database path in __init__.py and database_setup.py and veganmarket.py to 
 
 $engine = create_engine('postgresql://catalog:password@localhost/catalog')
 
@@ -160,7 +172,8 @@ $sudo python3 __init__.py
 
 $sudo python3 veganmarket.py
 
-14.Create a virtual environment
+
+**14.Create a virtual environment
 
 $sudo pip install virtualenv
 
@@ -174,7 +187,8 @@ Change the permissions
 
 $sudo chmod -R 777 venv
  
-15. Create .conf file :
+
+**15. Create .conf file :
 
 $sudo nano /etc/apache2/sites-available/veganmarket.conf
 <VirtualHost *:80>
@@ -199,7 +213,8 @@ $sudo nano /etc/apache2/sites-available/veganmarket.conf
 </VirtualHost>
 
 
-16. Reload server
+
+**16. Reload server
 
 $sudo disable apache 
 
@@ -207,8 +222,10 @@ $sudo a2dissite 000-default.conf
 
 $sudo service apache2 reload
 
-17. Configure google Api console and add new domain and redirect urls
-18. Visit http://35.158.243.74.xip.io
+
+**17. Configure google Api console and add new domain and redirect urls
+
+**18. Visit http://35.158.243.74.xip.io
 
 
 

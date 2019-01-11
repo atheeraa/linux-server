@@ -76,13 +76,13 @@ sudo ufw allow 123/udp
 sudo ufw enable 
 
 
-**5.change the local timezone :
+**5.change the local timezone :**
 
 $sudo dpkg-reconfigure tzdata
 
 
 
-**6. Install the following packages
+**6. Install the following packages**
 
 $sudo apt-get install libapache2-mod-wsgi-py3
 
@@ -93,7 +93,7 @@ $sudo apt-get install postgresql
 
 
 
-**7.Don't allow remote access to postgresql
+**7.Don't allow remote access to postgresql**
 
 check if remote access is allowed by :
 
@@ -101,7 +101,7 @@ $sudo nano /etc/postgresql/9.5/main/pg_hba.conf
 
 
 
-**8.Create database user 
+**8.Create database user **
 
 Login 
 
@@ -119,7 +119,7 @@ exit
 
 
 
-**9. Create a new directory in /var/www called veganmarket , clone git repository in it
+**9. Create a new directory in /var/www called veganmarket , clone git repository in it**
 
 $mkdir /var/www/veganmarket
 
@@ -128,7 +128,7 @@ cd /var/www/veganmarket
 $git clone https://github.com/atheeraa/veganmarket.git
 
 
-**10.Create wsgi file in veganmarket directory
+**10.Create wsgi file in veganmarket directory**
 
 $ sudo nano /var/www/veganmarket/veganmarket.wsgi
 
@@ -142,13 +142,9 @@ application.secret_key = 'super_secret_key'
 
 
 
-**11.Edit the python files with :
-
-engine = create_engine('postgresql://catalog:password@localhost/catalog')
 
 
-
-**12. Install nesessary packages:
+**11. Install nesessary packages:**
 
 $sudo apt-get install python-pip
 
@@ -162,9 +158,7 @@ $pip install psycopg2-binary
 
 
 
-**13. Change database path in __init__.py and database_setup.py and veganmarket.py to 
-
-$engine = create_engine('postgresql://catalog:password@localhost/catalog')
+**12. Change database path in __init__.py and database_setup.py and veganmarket.py to ** engine = create_engine('postgresql://catalog:password@localhost/catalog')
 
 $sudo python3 database_setup.py
 
@@ -173,7 +167,7 @@ $sudo python3 __init__.py
 $sudo python3 veganmarket.py
 
 
-**14.Create a virtual environment
+**13.Create a virtual environment**
 
 $sudo pip install virtualenv
 
@@ -188,7 +182,7 @@ Change the permissions
 $sudo chmod -R 777 venv
  
 
-**15. Create .conf file :
+**14. Create .conf file :**
 
 $sudo nano /etc/apache2/sites-available/veganmarket.conf
 <VirtualHost *:80>
@@ -214,7 +208,7 @@ $sudo nano /etc/apache2/sites-available/veganmarket.conf
 
 
 
-**16. Reload server
+**15. Reload server**
 
 $sudo disable apache 
 
@@ -223,9 +217,9 @@ $sudo a2dissite 000-default.conf
 $sudo service apache2 reload
 
 
-**17. Configure google Api console and add new domain and redirect urls
+**16. Configured google Api console and added new domain and redirect urls**
 
-**18. Visit http://35.158.243.74.xip.io
+**17. Visit http://35.158.243.74.xip.io**
 
 
 

@@ -4,11 +4,21 @@ The server IP address is :  35.158.243.74
 Port is : 2200 
 
 
+
 1.To connect to amazon lightsail instance :
 
 Download the key and move it into ~/.ssh and type:
 
-$ ssh -i ~/.ssh/skey.pem -p 2200 ubuntu@35.158.243.74
+$ ssh -i ~/.ssh/skey.pem -p 22 ubuntu@35.158.243.74
+ after changing the port into 22 by : 
+ 
+$sudo nano /etc/ssh/sshd_config
+Change the port from 22 to 2200
+$sudo service ssh restart
+
+we will be logging in using 
+
+$ssh -i ~/.ssh/skey.pem -p 2200 ubuntu@35.158.243.74
 
 2. For the grader to access the server the password and the phrase are given in the project submission notes.
 

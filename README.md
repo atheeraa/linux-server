@@ -8,7 +8,7 @@ URL : **http://35.158.243.74.xip.io/**
 
 
 
-**1. To connect to amazon lightsail instance :
+**1. To connect to amazon lightsail instance :**
 
 Download the key and move it into ~/.ssh and type:
 
@@ -26,7 +26,7 @@ we will be logging in using
 
 $ssh -i ~/.ssh/skey.pem -p 2200 ubuntu@35.158.243.74
 
-**2.Created the grader user and gave it sudo privilges 
+**2.Created the grader user and gave it sudo privilges **
 
 $sudo adduser grader 
 
@@ -55,13 +55,13 @@ chmod 700 .ssh
 chmod 644 .ssh/authorized_keys
 
 
-**3.Update all currently installed packages
+**3.Update all currently installed packages**
 
 $sudo apt-get update
 
 $sudo apt-get upgrade
 
-**4.Configure (UFW)
+**4.Configure (UFW)**
 
 sudo ufw deny incoming
 

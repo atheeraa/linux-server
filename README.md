@@ -1,4 +1,4 @@
-## This is udacity's project, deploying a project on a linux server.
+## This is udacity's FSND project, deploying a website on a linux server.
 
 The server IP address is :  **35.158.243.74**
 
@@ -12,7 +12,7 @@ URL : **http://35.158.243.74.xip.io/**
 
 Download the key and move it into ~/.ssh and type:
 
-$ ssh -i ~/.ssh/skey.pem -p 22 ubuntu@35.158.243.74
+>$ ssh -i ~/.ssh/skey.pem -p 22 ubuntu@35.158.243.74
  after changing the port into 22 by : 
  
 
